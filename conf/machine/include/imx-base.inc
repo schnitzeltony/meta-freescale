@@ -62,7 +62,11 @@ XSERVER_DRIVER                  = "xf86-video-fbdev"
 XSERVER_DRIVER_imxgpu2d         = "xf86-video-imx-vivante"
 XSERVER_DRIVER_vf               = "xf86-video-modesetting"
 XSERVER_DRIVER_append_mx8       = " xf86-video-modesetting"
-XSERVER_DRIVER_use-mainline-bsp = "xf86-video-armada"
+XSERVER_DRIVER_use-mainline-bsp = " \
+    xf86-video-fbdev \
+    xf86-video-modesetting \
+    xserver-xorg-extension-glx \
+"
 XSERVER = "xserver-xorg \
            xf86-input-evdev \
            ${XSERVER_DRIVER}"
@@ -240,6 +244,9 @@ MACHINE_FIRMWARE_append_mx8qxp = " firmware-imx-vpu-imx8"
 MACHINE_FIRMWARE_append_use-mainline-bsp = " linux-firmware-imx-sdma-imx6q linux-firmware-imx-sdma-imx7d firmware-imx-vpu-imx6q firmware-imx-vpu-imx6d"
 
 MACHINE_EXTRA_RRECOMMENDS += "${MACHINE_FIRMWARE}"
+
+# etnaviv: drm/mesa
+MACHINE_EXTRA_RRECOMMENDS_append_use-mainline-bsp = " libdrm-etnaviv mesa-etnaviv-env"
 
 # Extra audio support
 IMX_ALSA_EXTRA = ""
