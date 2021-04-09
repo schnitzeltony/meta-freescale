@@ -6,6 +6,8 @@ SRC_URI_append_use-mainline-bsp = " \
     file://0004-etnaviv-remove-double-assigment-of-surface-texture.patch \
     file://0005-etnaviv-compact-etna_state_updates.patch \
     file://0006-etnaviv-flush-used-render-buffers-on-context-flush-w.patch \
+    file://0007-drm-uapi-add-Vivante-TS-buffer-modifiers.patch \
+    file://0008-etnaviv-add-support-for-sharing-the-TS-buffer.patch \
 "
 
 PROVIDES_remove_imxgpu   = "virtual/egl"

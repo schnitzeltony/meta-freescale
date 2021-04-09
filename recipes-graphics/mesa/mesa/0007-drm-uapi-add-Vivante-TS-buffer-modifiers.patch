@@ -1,0 +1,47 @@
+From 8dd9830e7c5effe84d069237367c4b8ac865f099 Mon Sep 17 00:00:00 2001
+From: Lucas Stach <l.stach@pengutronix.de>
+Date: Tue, 23 Mar 2021 11:41:55 +0100
+Subject: [PATCH 1/2] drm-uapi: add Vivante TS buffer modifiers
+
+Vivante TS (tile-status) buffer modifiers. They can be combined with all of
+the color buffer tiling modifiers.
+
+NOTE: This commit must be a sync of the kernel header file.
+
+Signed-off-by: Lucas Stach <l.stach@pengutronix.de>
+
+Upstream-Status: Submitted [https://gitlab.freedesktop.org/mesa/mesa/-/merge_requests/9780]
+---
+ include/drm-uapi/drm_fourcc.h | 16 ++++++++++++++++
+ 1 file changed, 16 insertions(+)
+
+diff --git a/include/drm-uapi/drm_fourcc.h b/include/drm-uapi/drm_fourcc.h
+index 3f9c8110355..b3af655f038 100644
+--- a/include/drm-uapi/drm_fourcc.h
++++ b/include/drm-uapi/drm_fourcc.h
+@@ -565,6 +565,22 @@ extern "C" {
+  */
+ #define DRM_FORMAT_MOD_VIVANTE_SPLIT_SUPER_TILED fourcc_mod_code(VIVANTE, 4)
+ 
++/*
++ * Vivante TS (tile-status) buffer modifiers. They can be combined with all of
++ * the color buffer tiling modifiers defined above. When TS is present it's a
++ * separate buffer containing the clear/compression status of each tile. The
++ * modifiers are defined as VIVANTE_MOD_TS_c_s, where c is the color buffer tile
++ * size in bytes covered by one entry in the status buffer and s is the number
++ * of status bits per entry.
++ * We reserve the top 8bits of the Vivante modifier space for TS modifiers, as
++ * future cores might add some more TS layout variations.
++ */
++#define VIVANTE_MOD_TS_64_4               (1ULL << 48)
++#define VIVANTE_MOD_TS_64_2               (2ULL << 48)
++#define VIVANTE_MOD_TS_128_4              (3ULL << 48)
++#define VIVANTE_MOD_TS_256_4              (4ULL << 48)
++#define VIVANTE_MOD_TS_MASK               (0xffULL  << 48)
++
+ /* NVIDIA frame buffer modifiers */
+ 
+ /*
+-- 
+2.26.2
+
